@@ -16,6 +16,30 @@ if(isset($_GET['ambientC']) && isset($_GET['objectC'])){
 	fwrite($filedata, $data );
 	fclose($filedata);
 	echo($data);
+	
+	
+	$servername = "localhost";
+	$database = "test_db";
+	$username = "root";
+	$password = "root";
+
+	// Create connection
+
+	$conn = mysqli_connect($servername, $username, $password, $database);
+
+	// Check connection
+
+	if (!$conn) {
+	      die("Connection failed: " . mysqli_connect_error());
+	}
+
+	$sql = "INSERT INTO test_db (ambientC, objectC) VALUES ($ambientC, $objectC)";
+	if (mysqli_query($conn, $sql)) {
+	      echo "New record created successfully";
+	} else {
+	      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
+	mysqli_close($conn);
 }
 ?>
 
